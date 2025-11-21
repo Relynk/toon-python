@@ -17,6 +17,7 @@ from collections.abc import Mapping
 from datetime import date, datetime
 from decimal import Decimal
 from typing import Any
+from uuid import UUID
 
 # TypeGuard was added in Python 3.10, use typing_extensions for older versions
 if sys.version_info >= (3, 10):
@@ -76,6 +77,8 @@ def normalize_value(value: Any) -> JsonValue:
         return value
     if isinstance(value, str):
         return value
+    if isinstance(value, UUID):
+        return str(value)
 
     if isinstance(value, int):
         # Python integers have arbitrary precision and are encoded directly
